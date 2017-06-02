@@ -18,6 +18,7 @@ PREFIX=arm-eabi-
 KERNEL_SOURCE=~/source/android/kernel/msm-3.10
 
 # nama file config yang ingin dipakai, taruh didirectory ini
+# jika dirubah, pastikan nama file-nya
 KERNEL_DEFCONFIG=A16C3H_defconfig
 
 KERNEL_OUT=KERNEL_OUT
