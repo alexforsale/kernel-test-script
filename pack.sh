@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 # script ini yang akan melakukan packing boot.img
 # USAGE: pack.sh <parameter>
 # seandainya tidak ada parameter semua function akan dijalankan
@@ -20,36 +20,29 @@ dtb () {
     # Pack dtb menjadi dt.img
     echo "packing dt.img"
     bin/dtbToolCM --force-v2 -o dt.img -s $PAGESIZE -p $KERNEL_OUT/scripts/dtc/ $KERNEL_OUT/arch/$ARCH/boot/dts/
-    dtb=dt.img
 }
 
 ramdisk () {
     # pack directory ramdisk menjadi ramdisk.img
     echo "packing ramdisk.img"
     bin/mkbootfs ramdisk/ | minigzip > ramdisk.img
-    ramdisk=ramdisk.img
 }
 
 boot () {
     # pack dtb, ramdisk dan zImage menjadi boot.img
     echo "packing boot.img"
     mkbootimg --kernel zImage --ramdisk ramdisk.img --cmdline "$CMDLINE" --base $BASE --ramdisk_offset $RAMDISK_OFFSET --tags_offset $TAGS_OFFSET --dt dt.img --output kernel-test/boot.img
-    boot=kernel-test/boot.img
-}
-
-zip () {
-    # pack kernel-test.zip
-    for i in $(ls kernel-test/)
-    do
-        zip -r kernel-test.zip kernel-test/$i
-    done
-    zip=kernel-test.zip
 }
 
 clean () {
-    for output in $(ls $dtb $ramdisk $boot $zip); do
-        rm $output
-    done
+    dtb=dt.img
+    boot=kernel-test/boot.img
+    ramdisk=ramdisk.img
+    zip=kernel-test.zip
+    rm $dtb
+    rm $ramdisk
+    rm $boot
+    rm $zip
 }
 
 # parameter
@@ -64,7 +57,7 @@ case $1 in
         boot
         ;;
     "zip")
-        zip
+        echo "zip kernel-test.zip"
         ;;
     "all")
         dtb
@@ -83,3 +76,8 @@ case $1 in
         zip
         ;;
 esac
+
+if [ "$1" = "zip" ] || [ "$1" = "all" ] || [ "$1" = "" ]; then
+    cd kernel-test/
+    zip -r ../kernel-test.zip META-INF/ boot.img system/
+fi
