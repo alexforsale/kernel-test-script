@@ -18,6 +18,17 @@ KERNEL_MODULES_INSTALL=kernel-test/system
 KERNEL_MODULES_OUT=$KERNEL_MODULES_INSTALL/lib/modules
 INSTALL_MOD_PATH=kernel-test/system/lib/modules/
 
+save_defconfig () {
+    # simpan kernel config A16C3H_defconfig kedalam source kernel
+    if [ ! -e $KERNEL_OUT/.config ]; then
+        echo "$KERNEL_SOURCE belum memiliki .config file, copy dari A16C3H_defconfig"
+        cp $KERNEL_DEFCONFIG $KERNEL_OUT/.config
+    else
+        echo "$KERNEL_SOURCE sudah memiliki .config sendiri"
+    fi
+    make --directory=$KERNEL_SOURCE ARCH=$ARCH CROSS_COMPILE=$TOOLCHAIN/$PREFIX O=$(pwd)/$KERNEL_OUT savedefconfig
+    mv $(pwd)/$KERNEL_OUT/defconfig $KERNEL_SOURCE/arch/$ARCH/configs/$KERNEL_DEFCONFIG
+}
 mv-modules () {
     mdpath=`find $KERNEL_MODULES_OUT -type f -name modules.order`;
     if [ "$mdpath" != "" ];then
@@ -74,6 +85,7 @@ all () {
     # make config
     make --directory=$KERNEL_SOURCE ARCH=$ARCH CROSS_COMPILE=$TOOLCHAIN/$PREFIX O=$(pwd)/$KERNEL_OUT $KERNEL_DEFCONFIG
     make --jobs=$JOBS --directory=$KERNEL_SOURCE ARCH=$ARCH CROSS_COMPILE=$TOOLCHAIN/$PREFIX O=$(pwd)/$KERNEL_OUT all
+    cp $KERNEL_OUT/arch/arm/boot/zImage zImage
 }
 
 # parameter - parameter yang dipakai
@@ -90,8 +102,12 @@ case $1 in
     "clean")
         clean
         ;;
+    "savedefconfig")
+        save_defconfig
+        ;;
     "all")
         all
+        modules
         ;;
     *)
         echo "tidak ada parameter, diasumsikan all"
