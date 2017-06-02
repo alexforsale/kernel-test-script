@@ -1,0 +1,29 @@
+#+TITLE: Script untuk Compiling Kernel dan Pack Boot.img
+#+AUTHOR: Christian Alexander
+#+EMAIL: alexforsale@yahoo.com
+#+LANGUAGE: id
+
+Ada dua script didalam repository ini
+* [[file:kernel.sh][kernel.sh]]
+Script ini berfungsi untuk compiling kernel.
+** Contoh Penggunaan
+#+begin_src shell
+./kernel.sh all
+#+end_src
+Akan melakukan compiling semua function. Untuk function lainnya:
+ - Zimage: untuk compile zImage
+ - dtbs: untuk compile dts
+ - modules: untuk compile modules
+ - clean: make mrproper
+* [[file:pack.sh][pack.sh]] 
+Script ini berfungsi untuk packing boot.img
+** Contoh Penggunaan
+#+begin_src shell
+./pack.sh all
+#+end_src
+Akan melakukan packing semua function. Untuk function lainnya:
+ - dtb: untuk pack dt.img
+ - ramdisk: untuk pack ramdisk.img
+ - boot. untuk pack boot.img
+
+Jika tidak melakukan modifikasi pada ramdisk (seperti editing file init.rc, atau mengganti binary init dan lainnya), ambil ramdisk dari boot.img lain yang ingin dipakai, letakkan di /directory/ ini dengan nama ramdisk.img.
