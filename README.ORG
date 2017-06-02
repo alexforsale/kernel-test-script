@@ -15,6 +15,7 @@ Akan melakukan compiling semua function. Untuk function lainnya:
  - dtbs: untuk compile dts
  - modules: untuk compile modules
  - clean: make mrproper
+ - savedefconfig: menyimpan file .config ke source kernel
 * [[file:pack.sh][pack.sh]] 
 Script ini berfungsi untuk packing boot.img
 ** Contoh Penggunaan
