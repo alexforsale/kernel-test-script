@@ -2,3 +2,6 @@ zImage
 *.img
 *.zip
 *.ko
+venv/
+KERNEL_OUT/
+variables.txt
