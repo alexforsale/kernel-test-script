@@ -1,0 +1,8 @@
+show_progress(0.750000, 0);
+ui_print("Installing kernel test modules ...");
+mount("ext4", "EMMC", "/dev/block/bootdevice/by-name/system", "/system", "max_batch_time=0,commit=1,data=ordered,barrier=1,errors=panic,nodelalloc");
+package_extract_dir("system", "/system");
+show_progress(0.020000, 10);
+ui_print("Installing kernel test ...");
+package_extract_file("boot.img", "/dev/block/bootdevice/by-name/boot");
+unmount("/system");
