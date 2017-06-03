@@ -3,6 +3,7 @@
 #+EMAIL: alexforsale@yahoo.com
 #+LANGUAGE: id
 
+Scripts ini adalah bagian dari tutorial di http://mak2006.blogspot.co.id/2017/06/compile-kernel-android.html. Check ke link tersebut untuk informasi lebih detail mengenai fungsi - fungsi didalam script tersebut.
 Ada dua script didalam repository ini
 * [[file:kernel.sh][kernel.sh]]
 Script ini berfungsi untuk compiling kernel.
