@@ -4,6 +4,9 @@
 #+LANGUAGE: id
 
 Scripts ini adalah bagian dari tutorial di http://mak2006.blogspot.co.id/2017/06/compile-kernel-android.html. Check ke link tersebut untuk informasi lebih detail mengenai fungsi - fungsi didalam script tersebut.
+
+Clone repository ini atau download [[https://github.com/alexforsale/kernel-test-script/releases][tarball-nya]], ubah nama file variables.txt.contoh menjadi variables.txt, edit isi variable-nya sesuaikan dengan lokasi dan nama yang diinginkan. Lalu jalankan script-nya.
+
 Ada dua script didalam repository ini
 * [[file:kernel.sh][kernel.sh]]
 Script ini berfungsi untuk compiling kernel.
@@ -28,7 +31,7 @@ Akan melakukan packing semua function. Untuk function lainnya:
  - ramdisk: untuk pack ramdisk.img
  - boot. untuk pack boot.img
 
-* [[file:variables.txt.contoh][variable.txt.contoh]]
+* [[file:variables.txt.contoh][variables.txt.contoh]]
 File ini merupakan contoh dari file variable.txt, ubah dan sesuaikan isinya lalu /rename/ file ini menjadi variable.txt. isi dari file ini yang akan di source oleh kedua script diatas.
 
 Jika tidak melakukan modifikasi pada ramdisk (seperti editing file init.rc, atau mengganti binary init dan lainnya), ambil ramdisk dari boot.img lain yang ingin dipakai, letakkan di /directory/ ini dengan nama ramdisk.img.
